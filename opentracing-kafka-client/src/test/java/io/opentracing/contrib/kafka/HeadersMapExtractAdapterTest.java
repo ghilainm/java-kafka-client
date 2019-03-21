@@ -33,6 +33,16 @@ public class HeadersMapExtractAdapterTest {
     assertNotNull(header);
     assertEquals(header.getKey(), "test_null_header");
     assertNull(header.getValue());
+  }
 
+  @Test
+  public void verifyNullHeaderSecondSpanHandled() {
+    Headers headers = new RecordHeaders();
+    headers.add("second_span_test_null_header", null);
+    HeadersMapExtractAdapter headersMapExtractAdapter = new HeadersMapExtractAdapter(headers, true);
+    Entry<String, String> header = headersMapExtractAdapter.iterator().next();
+    assertNotNull(header);
+    assertEquals(header.getKey(), "test_null_header");
+    assertNull(header.getValue());
   }
 }

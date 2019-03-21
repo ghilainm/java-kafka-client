@@ -32,13 +32,17 @@ public class HeadersMapExtractAdapter implements TextMap {
       if (second) {
         if (header.key().startsWith("second_span_")) {
           map.put(header.key().replaceFirst("^second_span_", ""),
-              new String(header.value(), StandardCharsets.UTF_8));
+                  valueAsString(header));
         }
       } else {
-        byte[] headerValue = header.value();
-        map.put(header.key(), headerValue == null ? null : new String(headerValue, StandardCharsets.UTF_8));
+        map.put(header.key(), valueAsString(header));
       }
     }
+  }
+
+  private String valueAsString(Header header) {
+    byte[] headerValue = header.value();
+    return headerValue == null ? null : new String(headerValue, StandardCharsets.UTF_8);
   }
 
   @Override
